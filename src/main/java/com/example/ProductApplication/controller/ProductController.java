@@ -1,0 +1,54 @@
+package com.example.ProductApplication.controller;
+
+import com.example.ProductApplication.dto.ProductDTO;
+import com.example.ProductApplication.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/products")
+public class ProductController {
+
+    //create
+    @Autowired
+    private ProductService productService;
+    @PostMapping
+    public ProductDTO createProduct(@RequestBody ProductDTO productDTO){
+        return productService.createProduct(productDTO);
+
+    }
+    //get product
+
+    @GetMapping
+    public List<ProductDTO> getAllProducts(){
+        return productService.getAllProducts();
+    }
+
+    @PostMapping("/list")
+    public List<ProductDTO> createProductAndShowList(@RequestBody ProductDTO productDTO){
+        return productService.createProductAndShowList(productDTO);
+    }
+    //get by Id
+
+    @GetMapping("/{id}")
+    public ProductDTO getProductById(@PathVariable Long id){
+        return productService.getProductById(id);
+    }
+
+    //get by id
+    //delete
+
+    @DeleteMapping("/{id}")
+    public String deleteProductById(@PathVariable Long id){
+        return productService.deleteProductById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ProductDTO updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO){
+        return productService.updateProduct(id,productDTO);
+    }
+
+
+}
