@@ -52,10 +52,11 @@ public class GlobalExceptionHandler {
     //Advanced Way
     public ResponseEntity<ExceptionResponseDTO> handleCategoryListIsEmptyException(CategoryListIsEmptyException ex,WebRequest webRequest){
         ExceptionResponseDTO exceptionResponseDTO=new ExceptionResponseDTO(
-                webRequest.getDescription(false),
+                webRequest.getDescription(true),
                 HttpStatus.BAD_REQUEST,
                 ex.getMessage(),
                 LocalDateTime.now()
+
         );
         return new ResponseEntity<>(exceptionResponseDTO,HttpStatus.BAD_REQUEST);
     }

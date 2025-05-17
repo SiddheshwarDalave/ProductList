@@ -5,11 +5,13 @@ import com.example.ProductApplication.entity.Category;
 import com.example.ProductApplication.exception.CategoryAlreadyExistsException;
 import com.example.ProductApplication.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +34,12 @@ public class CategoryController {
             summary = "Create the Category",
             description = " Rest API for creating the categories"
     )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Category Created"
+    )
+    // Authorize part
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<?> createCategory(@RequestBody CategoryDTO categoryDTO){
         // exception is handling by globalException so no need to write anything in this class
@@ -67,6 +75,7 @@ public class CategoryController {
     }
 
     //Delete Cat by Id
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public CategoryDTO deleteCategory(@PathVariable Long id){
         return categoryService.deletecategory(id);
