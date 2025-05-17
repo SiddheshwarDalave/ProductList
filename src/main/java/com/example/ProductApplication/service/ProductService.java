@@ -3,6 +3,7 @@ package com.example.ProductApplication.service;
 import com.example.ProductApplication.dto.ProductDTO;
 import com.example.ProductApplication.entity.Category;
 import com.example.ProductApplication.entity.Product;
+import com.example.ProductApplication.exception.CategoryNotFoundException;
 import com.example.ProductApplication.mapper.ProductMapper;
 import com.example.ProductApplication.repository.CategoryRepository;
 import com.example.ProductApplication.repository.ProductRepository;
@@ -63,7 +64,7 @@ public class ProductService {
     }
 
     public ProductDTO getProductById(Long id) {
-        Product product=productRepository.findById(id).orElseThrow(()->new RuntimeException("Product with Id:"+id+"Not avilable in the database"));
+        Product product=productRepository.findById(id).orElseThrow(()->new CategoryNotFoundException("Product with Id:"+id+"Not avilable in the database"));
 
         return ProductMapper.toProductDTO(product);
     }
@@ -85,7 +86,7 @@ public class ProductService {
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getName());
         product.setPrice(productDTO.getPrice());
-        Category category=categoryRepository.findById(productDTO.getCategoryId()).orElseThrow(()-> new RuntimeException("No category found with id:"+id));
+        Category category=categoryRepository.findById(productDTO.getCategoryId()).orElseThrow(()-> new CategoryNotFoundException("No category found with id:"+id));
 
         product.setCategory(category);
         productRepository.save(product);

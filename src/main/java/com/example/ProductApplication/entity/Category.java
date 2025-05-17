@@ -23,6 +23,6 @@ public class Category {
     // So this will be OneToMany relation
     //so here will add list of product
 
-    @OneToMany(mappedBy="category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products=new ArrayList<>();
 }

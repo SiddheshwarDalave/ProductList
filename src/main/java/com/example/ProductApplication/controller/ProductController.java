@@ -2,11 +2,15 @@ package com.example.ProductApplication.controller;
 
 import com.example.ProductApplication.dto.ProductDTO;
 import com.example.ProductApplication.service.ProductService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Tag(
+        name="Product related CRUD Operation",
+        description = "This is product controller which has 6 Rest APis "
+)
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
